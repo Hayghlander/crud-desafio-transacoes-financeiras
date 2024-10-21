@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: transacoes!@#
+      MYSQL_DATABASE: transacoes_db
+      MYSQL_USER: usr_app
+      MYSQL_PASSWORD: transacoesApp!@#
+    ports:
+      - "3306:3306"
+    networks:
+      - finance_network
+    volumes:
+      - dbdata:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: mysql-db
+      MYSQL_ROOT_PASSWORD: transacoesApp!@#
+    ports:
+      - "8080:80"
+    networks:
+      - finance_network
+    depends_on:
+      - mysql
+
+  frontend:
+    build:
+      context: ./frontend  # Caminho onde o Dockerfile está
+    container_name: angular_app
+    volumes:
+      - ./frontend:/app  # Sincronizar arquivos locais com o container
+      - /app/node_modules  # Evitar sobrescrever o node_modules
+    ports:
+      - "4200:4200"  # Mapear a porta do Angular para o host
+    networks:
+      - finance_network
+    depends_on:
+      - mysql
+    environment:
+      - CHOKIDAR_USEPOLLING=true  # Usar polling para live reload
+    stdin_open: true
+    tty: true
+
+  # Serviço para o backend Laravel
+  app:
+    build:
+      context: ./backend # Caminho do diretório onde está o Dockerfile
+    container_name: laravel_app
+    volumes:
+      - ./backend:/var/www  # Sincroniza o código do host com o container
+    ports:
+      - "8000:8000"  # Mapeia a porta 8000 do container para a porta 8000 do host
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=transacoes_db
+      - DB_USERNAME=usr_app
+      - DB_PASSWORD=transacoesApp!@#
+    networks:
+      - finance_network
+    depends_on:
+      - mysql
+    command: |
+      sh -c "
+        /usr/bin/wait-for-it.sh db:3306 --timeout=60 --strict -- \
+        php artisan migrate || true && \
+        php artisan serve --host=0.0.0.0 --port=8000
+      "
+
+networks:
+  finance_network:
+    driver: bridge
+
+# Volume persistente para o banco de dados
+volumes:
+  dbdata:

@@ -1,0 +1,12 @@
+<mat-card class="card">
+  <mat-card-title class="card-title">Confirmar Exclusão</mat-card-title>
+  <mat-card-content>
+    <div mat-dialog-content>
+      <p class="text">Tem certeza de que deseja excluir esta transação ?</p>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button class="btn-action" (click)="onCancel()">Cancelar</button>
+      <button mat-raised-button  class="btn-action" color="warn" (click)="onConfirm()">Excluir</button>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,31 @@
+.filter-container {
+    margin-bottom: 0px;
+    width: 100%;
+  }
+
+.table-no-result {
+  width: 100%;
+  text-align: center;
+  height: 60px;
+  font-weight: 500;
+}
+
+/* Centralizar o conteúdo de todas as células de dados */
+.mat-cell {
+  text-align: center;
+}
+
+/* Centralizar o conteúdo de todos os cabeçalhos */
+.mat-header-cell {
+  text-align: center;
+}
+
+.mat-mdc-row .mat-mdc-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  border-color: currentColor;
+}

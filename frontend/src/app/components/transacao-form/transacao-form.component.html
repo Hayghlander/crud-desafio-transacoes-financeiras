@@ -1,0 +1,52 @@
+<mat-card class="card">
+  <mat-card-title class="card-title">Cadastrar Transação</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="transacaoForm" (ngSubmit)="onSubmit()">
+      <!-- Descrição -->
+      <mat-form-field appearance="fill">
+        <mat-label>Descrição</mat-label>
+        <input matInput placeholder="Digite a descrição" formControlName="descricao" required>
+        <mat-error *ngIf="hasError('descricao', 'required')">Descrição é obrigatória</mat-error>
+      </mat-form-field>
+      
+
+      <!-- Valor -->
+      <mat-form-field appearance="fill">
+        <mat-label>Valor</mat-label>
+        <input matInput type="number" placeholder="Digite o valor" formControlName="valor" required>
+        <mat-error *ngIf="hasError('valor', 'required')">Valor é obrigatório</mat-error>
+        <mat-error *ngIf="hasError('valor', 'min')">Valor deve ser maior que 0</mat-error>
+      </mat-form-field>
+
+      <!-- Tipo de Transação -->
+      <mat-form-field appearance="fill">
+        <mat-label>Tipo de Transação</mat-label>
+        <mat-select formControlName="tipo_transacao" required>
+          <mat-option *ngFor="let tipo of tiposTransacao" [value]="tipo">
+            {{ tipo.nome }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="hasError('tipo_transacao', 'required')">O campo tipo de transação é obrigatório</mat-error>
+      </mat-form-field>
+
+      <!-- Categoria -->
+      <mat-form-field appearance="fill">
+        <mat-label>Categoria</mat-label>
+        <mat-select formControlName="categoria" required>
+          <mat-option value="aluguel">Aluguel</mat-option>
+          <mat-option value="pagamento">Pagamento</mat-option>
+          <mat-option value="prolabore">Prolabore</mat-option>
+          <!-- Outras opções -->
+        </mat-select>
+        <mat-error *ngIf="hasError('categoria', 'required')">Categoria é obrigatória</mat-error>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <!-- Botão Salvar -->
+        <button mat-raised-button class="btn-action" color="primary" type="submit">Salvar</button>
+        <!-- Botão Cancelar -->
+        <button mat-button color="warn" class="btn-action" type="button" (click)="onCancel()">Cancelar</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

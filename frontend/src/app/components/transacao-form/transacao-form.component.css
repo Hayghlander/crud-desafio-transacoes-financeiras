@@ -1,0 +1,22 @@
+.card {
+    text-align: center;
+    padding: 10px;
+}
+
+.card-title {
+    color: white;
+    margin-bottom: 20px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.btn-action {
+    padding: 10px;
+    margin-right: 10px;
+    width: 100px;
+    font-weight: bold;
+}
