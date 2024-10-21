@@ -1,5 +1,7 @@
 # Desafio Técnico - Crud de Transações Financeiras
 
+![image](https://github.com/user-attachments/assets/791626c8-7a38-425a-81b1-778218cca487)
+
 ## Projeto Laravel + Angular em Docker
 
 Este projeto é composto por um backend desenvolvido em **Laravel** e um frontend em **Angular**, rodando em containers Docker para facilitar o desenvolvimento em ambientes locais.
