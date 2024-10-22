@@ -1,3 +1,5 @@
+https://github.com/Hayghlander/crud-desafio-transacoes-financeiras/blob/master/LICENSE
+
 # Desafio Técnico - Crud de Transações Financeiras
 
 ![image](https://github.com/user-attachments/assets/791626c8-7a38-425a-81b1-778218cca487)
